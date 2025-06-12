@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ColorDrop v2.0</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6200ee">
+</head>
+
+<body>
+  <!-- Pantalla del menú principal -->
+  <div id="menu" class="screen active">
+    <div class="logo-placeholder">
+      <img class="logo" src="assets/images/logo.png" alt="ColorDrop" title="ColorDrop">
+    </div>
+
+    <div class="level-cards">
+      <div class="level-card selected" data-value="10x10x20" id="facil">Fácil <span>(10x10 - 20 movs)</span></div>
+      <div class="level-card" data-value="15x15x25" id="intermedio">Intermedio <span>(15x15 - 25 movs)</span></div>
+      <div class="level-card" data-value="20x20x35" id="avanzado">Avanzado <span>(20x20 - 35 movs)</span></div>
+    </div>
+
+    <div class="slider-wrapper">
+      <label for="animationSpeed">Animación: <span id="speedLabel">Media</span></label>
+      <div class="slider-indicator">
+        <span class="slider-symbol">-</span>
+        <input type="range" id="animationSpeed" min="0" max="5" value="3" />
+        <span class="slider-symbol">+</span>
+      </div>
+    </div>
+
+    <div class="menu-buttons">
+      <button id="btnStart">Comenzar</button>
+    </div>
+  </div>
+
+  <!-- Pantalla del juego -->
+  <div id="game" class="screen">
+    <div class="logo-placeholder">
+      <img class="logo" src="assets/images/logo.png" alt="ColorDrop" title="ColorDrop">
+    </div>
+
+    <svg id="board"></svg>
+
+    <div class="info" id="info">Movimientos: 0/0</div>
+
+    <div class="color-rows">
+      <div class="controls" id="colorRow1"></div>
+      <div class="controls" id="colorRow2"></div>
+    </div>
+
+    <div class="info" id="difficultyInfo">Nivel: Fácil</div>
+
+    <div class="game-buttons">
+      <button id="btnRetry">Reintentar</button>
+      <button id="btnMenu">Salir</button>
+    </div>
+  </div>
+
+  <!-- Modal de ayuda -->
+  <div id="helpModal" class="modal">
+    <div class="modal-content">
+      <h2>¿Cómo se juega?</h2>
+      <p>Haz clic en los colores para llenar el tablero comenzando desde la esquina superior izquierda. El objetivo es
+        unificar todos los bloques con el mismo color en el menor número de movimientos posible.</p>
+      <button id="closeHelp">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Modal Mensaje de fin del juego -->
+  <div id="endMessage" class="end-message hidden">
+    <div class="end-box" id="endBox">
+      <p id="endText">Texto</p>
+      <p id="endScore">Puntuación</p>
+      <div class="end-buttons">
+        <button id="endReplay">Otra Partida</button>
+        <button id="endContinue">Salir</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal de estadísticas del usuario -->
+  <div id="statsModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>📊 Mis estadísticas</h2>
+      <div id="statsContent">
+        <p>Cargando...</p>
+      </div>
+      <button id="closeStats">Cerrar</button>
+    </div>
+  </div>
+
+
+  <!-- Modal de ranking global -->
+<div id="rankingModal" class="modal hidden">
+  <div class="modal-content">
+    <h2>🏆 Ranking global</h2>
+
+    <div class="ranking-tabs">
+      <button class="tab-btn active" data-nivel="facil">F</button>
+      <button class="tab-btn" data-nivel="intermedio">I</button>
+      <button class="tab-btn" data-nivel="avanzado">A</button>
+    </div>
+
+    <div id="rankingContent">
+      <p>Cargando...</p>
+    </div>
+
+    <button id="closeRanking">Cerrar</button>
+  </div>
+</div>
+
+  <!-- Barra inferior de la app -->
+  <footer id="footerBar" class="footer-bar">
+    <div class="footer-item" id="userInfo">
+      <i class="fas fa-user"></i> <span id="userName">Invitado</span>
+    </div>
+    <div class="footer-item" id="btnStats">
+      <i class="fas fa-chart-bar"></i>
+    </div>
+    <div class="footer-item" id="btnRanking">
+      <i class="fas fa-trophy"></i>
+    </div>
+
+    <div class="footer-item" id="btnHelp">
+      <i class="fas fa-question-circle"></i>
+    </div>
+    <div class="footer-item" id="btnLogout">
+      <i class="fas fa-sign-out-alt"></i>
+    </div>
+  </footer>
+
+  <!-- Script principal -->
+  <script type="module" src="js/game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(reg => console.log('Service Worker registrado'))
+        .catch(err => console.error('Error al registrar Service Worker:', err));
+    }
+  </script>
+</body>
+
+</html>
